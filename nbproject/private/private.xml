@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Public/projeto-dcm/src/java/controller/ContextListener.java</file>
             <file>file:/C:/Users/Public/projeto-dcm/src/java/model/framework/DataAccessObject.java</file>
-            <file>file:/C:/Users/Public/projeto-dcm/src/java/controller/AppConfig.java</file>
-            <file>file:/C:/Users/Public/projeto-dcm/src/java/model/framework/DataBaseConnections.java</file>
+            <file>file:/C:/Users/Public/projeto-dcm/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/Public/projeto-dcm/src/java/controller/FrontController.java</file>
+            <file>file:/C:/Users/Public/projeto-dcm/web/home/app/usuarios_form.jsp</file>
+            <file>file:/C:/Users/Public/projeto-dcm/web/home/login.jsp</file>
         </group>
     </open-files>
 </project-private>

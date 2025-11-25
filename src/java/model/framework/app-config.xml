@@ -1,4 +1,4 @@
 <config>
 	<settings verbose="true"/>
-	<database url="jdbc:mysql://localhost:3306/sgcm_bd" user="root" password="root"/> <!--alterar para bd do IFSP-->
+	<database url="jdbc:mysql://localhost:3306/dcmen_bd" user="root" password="root"/> <!--alterar para bd do IFSP-->
 </config>
