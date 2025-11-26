@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import logtrack.ExceptionLogTrack;
+import model.TipoUsuario;
 import model.Usuario;
 
 public class FrontController extends HttpServlet {  
@@ -49,6 +50,8 @@ public class FrontController extends HttpServlet {
         try {
         
             switch (task) {
+                
+                case "login": doPostLogin(request, response); break;
 
                 case "usuarios": doPostUsuarios(request, response); break;
 
@@ -84,6 +87,63 @@ public class FrontController extends HttpServlet {
     }
     
 //Do Posts ===================================================================================================================
+    
+    private void doPostLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {  
+        
+        int id = Integer.valueOf( request.getParameter("id") );        
+        String senha = request.getParameter("senha");
+        
+        Usuario usuarioTry = new Usuario();
+        usuarioTry.setId(id);
+        usuarioTry.setSenha(senha);
+        
+        Usuario usuario = new Usuario();
+        usuario.setId(id);        
+        boolean status = usuario.load();
+        
+        if( ( status == true ) &&
+              ( usuario.getSenha().equals( usuarioTry.getSenha() ) ) ) {
+            
+            // true crie um sessão se não houver alguma, false do contrário
+            // informações amarmazenadas no servidor
+            HttpSession sessao = request.getSession(false);
+            if( sessao != null ) {
+                sessao.removeAttribute("usuario");
+                sessao.removeAttribute("tipo_usuario");
+           
+                sessao.invalidate();
+            }
+            
+            sessao = request.getSession(true);
+            
+            sessao.setAttribute( "usuario", "(" + usuario.getNome() + ", " + usuario.getId() + ")" );
+            
+            TipoUsuario tipoUsuario = new TipoUsuario();
+            tipoUsuario.setId( usuario.getTipoUsuarioId() );
+            tipoUsuario.load();
+            
+            sessao.setAttribute( "tipo_usuario", tipoUsuario );
+            
+            sessao.setMaxInactiveInterval( 60 * 60 ); // em segundos
+            
+            // criado e armazenado no cliente
+            Cookie cookie = new Cookie( "id", String.valueOf(id) );
+            cookie.setMaxAge( 60 * 10 ); // em segundos
+            response.addCookie(cookie);
+            
+            // faz com que o cliente acesse o recurso
+            response.sendRedirect( request.getContextPath() +  "/home/app/newhtml.html" );
+            
+        } else {
+            
+            // faz com que o servidor acesso o recurso
+            request.setAttribute("msg", "id e/ou senha incorreto(s)");
+            request.getRequestDispatcher( "/home/login.jsp" ).forward(request, response);
+            
+        }
+        
+        
+    } 
     
     private void doPostUsuarios(HttpServletRequest request, HttpServletResponse response) throws Exception {  
         
