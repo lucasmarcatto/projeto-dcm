@@ -28,6 +28,8 @@ public class FrontController extends HttpServlet {
 
                 case "usuarios": doGetUsuarios(request, response); break;
                 
+                case "logout": doGetLogout(request, response); break;
+                
                 default: doDefault(request, response);
 
             }
@@ -86,6 +88,20 @@ public class FrontController extends HttpServlet {
         
     }
     
+    private void doGetLogout(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        
+       HttpSession sessao = request.getSession(false);
+       if( sessao != null ) {
+           sessao.removeAttribute("usuario");
+           sessao.removeAttribute("tipo_usuario");
+           
+           sessao.invalidate();
+       }
+       
+       response.sendRedirect( request.getContextPath() +  "/home/login.jsp" );
+        
+    }
+    
 //Do Posts ===================================================================================================================
     
     private void doPostLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {  
@@ -132,7 +148,7 @@ public class FrontController extends HttpServlet {
             response.addCookie(cookie);
             
             // faz com que o cliente acesse o recurso
-            response.sendRedirect( request.getContextPath() +  "/home/app/newhtml.html" );
+            response.sendRedirect( request.getContextPath() +  "/home/home.jsp" );
             
         } else {
             
