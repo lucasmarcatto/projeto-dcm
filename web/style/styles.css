@@ -283,3 +283,28 @@ button {
         padding: 2rem 1.5rem;
     }
 }
+
+/* Add Product Section */
+.add-product-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.btn-add-product {
+    background-color: #ffd900;
+    color: #0d0d0d;
+    padding: 0.75rem 2rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+    transition: all 0.2s;
+}
+
+.btn-add-product:hover {
+    background-color: #ffed4e;
+    transform: translateY(-2px);
+}

@@ -18,18 +18,20 @@
 
 %>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/style/styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <nav class="navbar">
     <div class="nav-container">
         <div class="nav-left">
             <div class="logo">
                 <a href="<%=request.getContextPath()%>/home/home.jsp"><img src="<%=request.getContextPath()%>/img/logo-dcmen-png.png" alt="Logo DC Men"></a>
                 
-            </div>
+            </div> 
             <div class="nav-links">
-                <a href="#">Novidades</a>
-                <a href="#">Masculino</a>
-                <a href="#">Feminino</a>
-                <a href="#">Acessórios</a>
+                <% if( logado && tipoUsuarioLogado.getModuloAdm().equals("S") ){%>
+                    <a href="#">Add Produto</a>
+                <%}%>
             </div>
         </div>
         <div class="nav-right">

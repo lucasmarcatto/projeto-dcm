@@ -1,38 +1,41 @@
-<%-- 
-    Document   : home
-    Created on : 29 de nov. de 2025, 13:13:15
-    Author     : Lucas Marcatto
-
-camisa_bsq_brasil.jpg
---%>
-
+<%@page import="model.Produto"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Home -DC Men Store</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home - DC Men Store</title>
     </head>
     <body>
         <%@ include file="/home/app/modulos.jsp" %>
         
-        <!-- Inserir lógica de pegar produtos do BD-->
-        
+        <% ArrayList<Produto> dados = new Produto().getAllTableEntities(); %>
+    
         <!-- Produtos -->
         <main class="main-content">
+            <div class="add-product-section">
+                <button class="btn-add-product">+ Adicionar Produto</button>
+            </div>
             <div class="products-grid">
                 <!-- Produto 1 -->
-                <div class="product-card">
-                    <div class="product-image">
-                        <img src="<%=request.getContextPath()%>/img/camisa_bsq_brasil.jpg" alt="Camiseta Essential Black">
+                <% for( Produto pd : dados ) { %>
+                <%
+                    String imgPath = pd.getCaminhoImg() == null ? request.getContextPath() + "/img/logo-dc-men-png.png" : request.getContextPath() + pd.getCaminhoImg();
+                %>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="<%=imgPath%>" alt="<%= pd.getNome()%>">
+                        </div>
+                        <div class="product-info">
+                            <h3><%= pd.getNome()%></h3>
+                            <p class="price">R$ <%= pd.getValor()%></p>
+                        </div>
                     </div>
-                    <div class="product-info">
-                        <h3>Camiseta Essential Black</h3>
-                        <p class="price">R$ 89,90</p>
-                    </div>
-                </div>
-
+                <% } %>        
             </div>
         </main>
+        
     </body>
 </html>
