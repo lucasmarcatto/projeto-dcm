@@ -10,32 +10,35 @@
     </head>
     <body>
         <%@ include file="/home/app/modulos.jsp" %>
-        
+
         <% ArrayList<Produto> dados = new Produto().getAllTableEntities(); %>
-    
+
         <!-- Produtos -->
         <main class="main-content">
-            <div class="add-product-section">
-                <button class="btn-add-product">+ Adicionar Produto</button>
-            </div>
+            <% if (logado && tipoUsuarioLogado.getModuloAdm().equals("S")) {%>
+                <a href="<%= request.getContextPath()  %>/home/app/produtos_form.jsp?action=create">
+                    <div class="add-product-section">
+                        <button class="btn-add-product">+ Adicionar Produto</button>
+                    </div>
+                </a>
+            <%}%>
             <div class="products-grid">
                 <!-- Produto 1 -->
-                <% for( Produto pd : dados ) { %>
-                <%
-                    String imgPath = pd.getCaminhoImg() == null ? request.getContextPath() + "/img/logo-dc-men-png.png" : request.getContextPath() + pd.getCaminhoImg();
+                <% for (Produto pd : dados) { 
+                    String imgPath = pd.getCaminhoImg() == null ? request.getContextPath() + "/img/logo-dcmen-png.png" : request.getContextPath() + pd.getCaminhoImg();
                 %>
                     <div class="product-card">
                         <div class="product-image">
                             <img src="<%=imgPath%>" alt="<%= pd.getNome()%>">
                         </div>
                         <div class="product-info">
-                            <h3><%= pd.getNome()%></h3>
+                            <h3><%= pd.getNome()%> - <%= pd.getTamanho()%> </h3>
                             <p class="price">R$ <%= pd.getValor()%></p>
                         </div>
                     </div>
-                <% } %>        
+                <% }%>        
             </div>
         </main>
-        
+
     </body>
 </html>

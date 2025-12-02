@@ -192,7 +192,7 @@ public class FrontController extends HttpServlet {
 
         us.save();
         
-        response.sendRedirect( request.getContextPath() + "/home/app/adm/usuarios.jsp");
+        response.sendRedirect( request.getContextPath() + "/home/home.jsp");
         
     } 
     
