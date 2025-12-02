@@ -17,10 +17,12 @@
     String logoutPath = request.getContextPath() + "/home?task=logout";
 
 %>
-<link rel="stylesheet" href="<%=request.getContextPath()%>/style/styles.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/styles.css"> 
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <nav class="navbar">
     <div class="nav-container">
         <div class="nav-left">
@@ -30,7 +32,10 @@
             </div> 
             <div class="nav-links">
                 <% if( logado && tipoUsuarioLogado.getModuloAdm().equals("S") ){%>
-                    <a href="#">Add Produto</a>
+                    <a href="<%= request.getContextPath()  %>/home/app/produtos_form.jsp?action=create">Add Produto</a>
+                <%}%>
+                <% if( logado && (tipoUsuarioLogado.getModuloAdm().equals("S") || tipoUsuarioLogado.getModuloVendas().equals("S") ) ){%>
+                    <a href="<%=request.getContextPath()%>/home/app/produtos.jsp">Ver Produtos</a>
                 <%}%>
             </div>
         </div>

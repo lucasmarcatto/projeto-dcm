@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import logtrack.ExceptionLogTrack;
+import model.Produto;
 import model.TipoUsuario;
 import model.Usuario;
 
@@ -56,6 +57,8 @@ public class FrontController extends HttpServlet {
                 case "login": doPostLogin(request, response); break;
 
                 case "usuarios": doPostUsuarios(request, response); break;
+                
+                case "produtos": doPostProdutos(request, response); break;
 
                 default: doDefault(request, response);
 
@@ -196,7 +199,46 @@ public class FrontController extends HttpServlet {
         
     } 
     
-   
+    private void doPostProdutos(HttpServletRequest request, HttpServletResponse response) throws Exception {  
+        
+        String action = request.getParameter("action");
+
+        int id = Integer.valueOf( request.getParameter("id") );       
+        String nome = request.getParameter("nome");       
+        String cor = request.getParameter("cor"); 
+        String tamanho = request.getParameter("tamanho");        
+        float valor = Float.parseFloat(request.getParameter("valor"));  
+        String caminhoImg = request.getParameter("caminho_img");        
+        int categoriaId = Integer.valueOf( request.getParameter("categoria_id") );       
+        int marcaId = Integer.valueOf( request.getParameter("marca_id") );       
+        
+        Produto pd = new Produto();
+
+        pd.setId(id);
+
+        if( action.equals("update") ) pd.load();
+
+        pd.setNome(nome);
+        pd.setCor(cor);
+        pd.setTamanho(tamanho);
+        pd.setValor(valor);
+        
+        if(caminhoImg == ""){
+            pd.setCaminhoImg(null);
+        } else {
+            caminhoImg = "/" + caminhoImg;
+            pd.setCaminhoImg(caminhoImg);
+        }
+        
+        
+        pd.setCategoriaId(categoriaId);
+        pd.setMarcaId(marcaId);
+
+        pd.save();
+        
+        response.sendRedirect( request.getContextPath() + "/home/home.jsp");
+        
+    } 
         
 //Default ====================================================================================================================   
         

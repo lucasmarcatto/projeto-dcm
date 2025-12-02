@@ -35,14 +35,46 @@
         <main class="login-container">
             <div class="login-box">
                 <h1 class="login-title"><%= (action.equals("create") ? "Cadastrar" : "Editar")%> Produto</h1>
-                <form class="login-form" action="<%= request.getContextPath()%>/home?task=login" method="post">
+                <form class="login-form" action="<%= request.getContextPath()%>/home?action=<%= action%>&task=produtos" method="post">
 
                     <div class="form-group">
-
+                        <label for="id">Id:</label>
+                        <input type="text" id="id" name ="id" pattern="\d+" title="Apenas números" value="<%= (pd != null) ? pd.getId() : ""%>" <%= (pd != null) ? "readonly" : ""%> required><br/>                       
                     </div>
 
                     <div class="form-group">
-
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="nome" name ="nome" value="<%= ((pd != null) && (pd.getNome() != null)) ? pd.getNome() : ""%>" required><br/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cor">Cor:</label>
+                        <input type="text" id="cor" name ="cor" value="<%= ((pd != null) && (pd.getCor()!= null)) ? pd.getCor() : ""%>" required><br/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tamanho">Tamanho:</label>
+                        <input type="text" id="tamanho" name ="tamanho" value="<%= ((pd != null) && (pd.getTamanho()!= null)) ? pd.getTamanho(): ""%>" required><br/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="valor">Valor:</label>
+                        <input type="number" step="any" id="valor" name ="valor" title="Apenas dígitos" value="<%= (pd != null) ? pd.getValor(): ""%>"required><br/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="caminho_img">Nome da Imagem salva (pasta/nome.ext):</label>
+                        <input type="text" id="caminho_img" name ="caminho_img" value="<%= ((pd != null) && (pd.getCaminhoImg()!= null)) ? pd.getCaminhoImg(): ""%>" ><br/>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="categoria_id">Categoria ID:</label>
+                        <input type="text" id="categoria_id" name ="categoria_id" pattern="\d+" title="Apenas dígitos" value="<%= ((pd != null)) ? pd.getCategoriaId(): ""%>" required><br/>
+                    </div>
+                    
+                    <div class="form-group">                       
+                        <label for="marca_id">Marca ID:</label>
+                        <input type="text" id="marca_id" name ="marca_id" pattern="\d+" title="Apenas dígitos" value="<%= ((pd != null)) ? pd.getMarcaId(): ""%>" required><br/>
                     </div>
 
                     <button type="submit" name="Salvar" value="Salvar" class="btn-submit">Salvar</button>
