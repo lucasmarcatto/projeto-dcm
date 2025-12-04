@@ -1,3 +1,6 @@
+<%@page import="model.Marca"%>
+<%@page import="model.Categoria"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="model.Produto"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -69,12 +72,39 @@
                     
                     <div class="form-group">
                         <label for="categoria_id">Categoria ID:</label>
-                        <input type="text" id="categoria_id" name ="categoria_id" pattern="\d+" title="Apenas dígitos" value="<%= ((pd != null)) ? pd.getCategoriaId(): ""%>" required><br/>
+                    
+                        <select id="categoria_id" name ="categoria_id">
+                            <%
+                            ArrayList<Categoria> dadosCategoria = new Categoria().getAllTableEntities();
+                            int categoriaAtualId = (pd != null) ? pd.getCategoriaId() : 0;
+                            
+                            for (Categoria ct : dadosCategoria){
+                            %>
+                            <option value="<%= ct.getId()%>" <%= (ct.getId() == categoriaAtualId) ? "selected" : "" %>>
+                                <%= ct.getNome()%>
+                            </option>
+                            <%}%>
+                        </select><br/>
+                        
                     </div>
                     
                     <div class="form-group">                       
                         <label for="marca_id">Marca ID:</label>
-                        <input type="text" id="marca_id" name ="marca_id" pattern="\d+" title="Apenas dígitos" value="<%= ((pd != null)) ? pd.getMarcaId(): ""%>" required><br/>
+                    
+                        <select id="marca_id" name ="marca_id">
+                            <%
+                            ArrayList<Marca> dadosMarca = new Marca().getAllTableEntities();
+                            int marcaAtualId = (pd != null) ? pd.getCategoriaId() : 0;
+                            
+                            for (Marca mc : dadosMarca){
+                            %>
+                            <option value="<%= mc.getId()%>" <%= (mc.getId() == marcaAtualId) ? "selected" : "" %>>
+                                <%= mc.getNome()%>
+                            </option>
+                            <%
+                            }
+                            %>
+                        </select><br/>
                     </div>
 
                     <button type="submit" name="Salvar" value="Salvar" class="btn-submit">Salvar</button>

@@ -29,6 +29,8 @@ public class FrontController extends HttpServlet {
 
                 case "usuarios": doGetUsuarios(request, response); break;
                 
+                case "produtos": doGetProdutos(request, response); break;
+                
                 case "logout": doGetLogout(request, response); break;
                 
                 default: doDefault(request, response);
@@ -87,7 +89,26 @@ public class FrontController extends HttpServlet {
             
         }
         
-        response.sendRedirect( request.getContextPath() + "/home/app/adm/usuarios.jsp");
+        response.sendRedirect( request.getContextPath() + "/home/app/usuarios.jsp");
+        
+    }
+    
+    private void doGetProdutos(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        
+        String action = request.getParameter("action");
+        if( ( action != null ) &&
+                action.equals("delete") ) {
+            
+            int id = Integer.valueOf( request.getParameter("id") );
+            
+            Produto pd = new Produto();
+            pd.setId(id);
+            
+            pd.delete();
+            
+        }
+        
+        response.sendRedirect( request.getContextPath() + "/home/app/produtos.jsp");
         
     }
     
@@ -226,8 +247,12 @@ public class FrontController extends HttpServlet {
         if(caminhoImg == ""){
             pd.setCaminhoImg(null);
         } else {
-            caminhoImg = "/" + caminhoImg;
-            pd.setCaminhoImg(caminhoImg);
+            if(caminhoImg.startsWith("/")){
+                pd.setCaminhoImg(caminhoImg);
+            } else {
+                caminhoImg = "/" + caminhoImg;
+                pd.setCaminhoImg(caminhoImg);
+            }
         }
         
         

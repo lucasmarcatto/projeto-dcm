@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="model.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -42,12 +43,12 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="nome">Nome:</label>
+                        <label for="nome">Nome:*</label>
                         <input type="text" id="nome" name ="nome" value="<%= ((us != null) && (us.getNome() != null)) ? us.getNome() : ""%>" required><br/>
                     </div>
 
                     <div class="form-group">
-                        <label for="email">E-mail:</label>
+                        <label for="email">E-mail:*</label>
                         <input type="text" id="email" name ="email" pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" title="Insira um e-mail válido" value="<%= ((us != null) && (us.getEmail() != null)) ? us.getEmail() : ""%>" required><br/>
 
                     </div>
@@ -58,13 +59,22 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="tipo_usuario_id">Tipo Usuário ID:</label>
-                        <input type="text" id="tipo_usuario_id" name ="tipo_usuario_id" pattern="\d+" title="apenas dígitos" value="<%= ((us != null)) ? us.getTipoUsuarioId() : ""%>" required><br/>
-
+                        <label for="tipo_usuario_id">Tipo Usuário:*</label>
+                        
+                        <select id="tipo_usuario_id" name ="tipo_usuario_id">
+                            <%
+                            ArrayList<TipoUsuario> dados = new TipoUsuario().getAllTableEntities();
+                            for (TipoUsuario tp : dados){
+                            %>
+                            <option value="<%= tp.getId()%>">
+                                <%= tp.getNome()%>
+                            </option>
+                            <%}%>
+                        </select><br/>
                     </div>
 
                     <div class="form-group">
-                        <label for="senha">Senha:</label>
+                        <label for="senha">Senha:*</label>
                         <input type="password" id="senha" name ="senha" value="<%= ((us != null)) ? us.getSenha() : ""%>" required><br/>
 
                     </div>

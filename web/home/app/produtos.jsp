@@ -1,3 +1,5 @@
+<%@page import="model.Marca"%>
+<%@page import="model.Categoria"%>
 <%@page import="model.Produto"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -45,8 +47,29 @@
                                 <td><%= pd.getCor()%></td>
                                 <td><%= pd.getTamanho()%></td>
                                 <td>R$ <%= pd.getValor()%></td>
-                                <td><%= pd.getCategoriaId()%></td>
-                                <td><%= pd.getMarcaId()%></td>
+                                <%
+                                ArrayList<Categoria> dadosCategoria = new Categoria().getAllTableEntities();
+                                String categoriaNome = "";
+                                for (Categoria ct : dadosCategoria) {
+                                    if (pd.getCategoriaId() == ct.getId()) {
+                                        categoriaNome = ct.getNome();
+                                        break;
+                                    }
+                                }
+                                %>
+                                <td><%= categoriaNome%></td>
+                                
+                                <%
+                                ArrayList<Marca> dadosMarca = new Marca().getAllTableEntities();
+                                String marcaNome = "";
+                                for (Marca mc : dadosMarca) {
+                                    if (pd.getMarcaId() == mc.getId()) {
+                                        marcaNome = mc.getNome();
+                                        break;
+                                    }
+                                }
+                                %>
+                                <td><%= marcaNome%></td>
                                 
                                 <% if( logado && (tipoUsuarioLogado.getModuloAdm().equals("S") || tipoUsuarioLogado.getModuloVendas().equals("S") ) ){%>
                                     
@@ -55,10 +78,10 @@
                                                 <button class="btn-edit">Editar</button>
                                             </a>
                                             
-                                            <a href="#">
+                                            <a href="<%= request.getContextPath() %>/home?action=delete&id=<%= pd.getId()%>&task=produtos" onclick="return confirm('Deseja realmente excluir <%= pd.getNome()%> ?')">
                                                 <button class="btn-delete">Excluir</button>
                                             </a>
-                                            </td>
+                                        </td>
                                     
                                 <% } %>
                             </tr>
