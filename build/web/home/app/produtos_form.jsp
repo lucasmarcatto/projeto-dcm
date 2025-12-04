@@ -41,27 +41,27 @@
                 <form class="login-form" action="<%= request.getContextPath()%>/home?action=<%= action%>&task=produtos" method="post">
 
                     <div class="form-group">
-                        <label for="id">Id:</label>
+                        <label for="id">Id:*</label>
                         <input type="text" id="id" name ="id" pattern="\d+" title="Apenas números" value="<%= (pd != null) ? pd.getId() : ""%>" <%= (pd != null) ? "readonly" : ""%> required><br/>                       
                     </div>
 
                     <div class="form-group">
-                        <label for="nome">Nome:</label>
+                        <label for="nome">Nome:*</label>
                         <input type="text" id="nome" name ="nome" value="<%= ((pd != null) && (pd.getNome() != null)) ? pd.getNome() : ""%>" required><br/>
                     </div>
                     
                     <div class="form-group">
-                        <label for="cor">Cor:</label>
+                        <label for="cor">Cor:*</label>
                         <input type="text" id="cor" name ="cor" value="<%= ((pd != null) && (pd.getCor()!= null)) ? pd.getCor() : ""%>" required><br/>
                     </div>
                     
                     <div class="form-group">
-                        <label for="tamanho">Tamanho:</label>
+                        <label for="tamanho">Tamanho:*</label>
                         <input type="text" id="tamanho" name ="tamanho" value="<%= ((pd != null) && (pd.getTamanho()!= null)) ? pd.getTamanho(): ""%>" required><br/>
                     </div>
                     
                     <div class="form-group">
-                        <label for="valor">Valor:</label>
+                        <label for="valor">Valor:*</label>
                         <input type="number" step="any" id="valor" name ="valor" title="Apenas dígitos" value="<%= (pd != null) ? pd.getValor(): ""%>"required><br/>
                     </div>
                     
@@ -71,9 +71,9 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="categoria_id">Categoria ID:</label>
+                        <label for="categoria_id">Categoria:*</label>
                     
-                        <select id="categoria_id" name ="categoria_id">
+                        <select id="categoria_id" name ="categoria_id" required>
                             <%
                             ArrayList<Categoria> dadosCategoria = new Categoria().getAllTableEntities();
                             int categoriaAtualId = (pd != null) ? pd.getCategoriaId() : 0;
@@ -89,9 +89,9 @@
                     </div>
                     
                     <div class="form-group">                       
-                        <label for="marca_id">Marca ID:</label>
+                        <label for="marca_id">Marca:*</label>
                     
-                        <select id="marca_id" name ="marca_id">
+                        <select id="marca_id" name ="marca_id" required>
                             <%
                             ArrayList<Marca> dadosMarca = new Marca().getAllTableEntities();
                             int marcaAtualId = (pd != null) ? pd.getCategoriaId() : 0;

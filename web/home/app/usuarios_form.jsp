@@ -58,6 +58,9 @@
                         <input type="text" id="telefone" name ="telefone" pattern="^\([0-9]{2}\)\s?[0-9]{4,5}-[0-9]{4}$" title="Formato aceito: (xx)xxxx-xxxx ou (xx)xxxxx-xxxx" value="<%= ((us != null) && (us.getTelefone() != null)) ? us.getTelefone() : ""%>"><br/>
                     </div>
 
+                    <%
+                    if(logado && tipoUsuarioLogado.getModuloAdm().equals("S")){
+                    %>
                     <div class="form-group">
                         <label for="tipo_usuario_id">Tipo Usuário:*</label>
                         
@@ -72,7 +75,9 @@
                             <%}%>
                         </select><br/>
                     </div>
-
+                    <%
+                    }
+                    %>        
                     <div class="form-group">
                         <label for="senha">Senha:*</label>
                         <input type="password" id="senha" name ="senha" value="<%= ((us != null)) ? us.getSenha() : ""%>" required><br/>

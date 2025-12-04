@@ -32,10 +32,13 @@
             </div> 
             <div class="nav-links">
                 <% if( logado && tipoUsuarioLogado.getModuloAdm().equals("S") ){%>
-                    <a href="<%= request.getContextPath()  %>/home/app/produtos_form.jsp?action=create">Add Produto</a>
+                    <a href="<%= request.getContextPath()  %>/home/app/produtos_form.jsp?action=create">Adicionar Produto</a>
+                    <a href="<%= request.getContextPath()  %>/home/app/categorias_form.jsp?action=create">Adicionar Categoria</a>
+                    <a href="<%= request.getContextPath()  %>/home/app/tipousuario_form.jsp?action=create">Adicionar Tipo de Usuário</a>
                 <%}%>
                 <% if( logado && (tipoUsuarioLogado.getModuloAdm().equals("S") || tipoUsuarioLogado.getModuloVendas().equals("S") ) ){%>
                     <a href="<%=request.getContextPath()%>/home/app/produtos.jsp">Ver Produtos</a>
+                    <a href="<%=request.getContextPath()%>/home/app/categorias.jsp">Ver Categorias</a>
                 <%}%>
             </div>
         </div>

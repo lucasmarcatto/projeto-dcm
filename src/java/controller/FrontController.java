@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import logtrack.ExceptionLogTrack;
+import model.Categoria;
 import model.Produto;
 import model.TipoUsuario;
 import model.Usuario;
@@ -30,6 +31,8 @@ public class FrontController extends HttpServlet {
                 case "usuarios": doGetUsuarios(request, response); break;
                 
                 case "produtos": doGetProdutos(request, response); break;
+                
+                case "categorias": doGetCategorias(request, response); break;
                 
                 case "logout": doGetLogout(request, response); break;
                 
@@ -61,6 +64,10 @@ public class FrontController extends HttpServlet {
                 case "usuarios": doPostUsuarios(request, response); break;
                 
                 case "produtos": doPostProdutos(request, response); break;
+                
+                case "categorias": doPostCategorias(request, response); break;
+                
+                case "tipousuario": doPostTipoUsuario(request, response); break;
 
                 default: doDefault(request, response);
 
@@ -109,6 +116,25 @@ public class FrontController extends HttpServlet {
         }
         
         response.sendRedirect( request.getContextPath() + "/home/app/produtos.jsp");
+        
+    }
+    
+    private void doGetCategorias(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        
+        String action = request.getParameter("action");
+        if( ( action != null ) &&
+                action.equals("delete") ) {
+            
+            int id = Integer.valueOf( request.getParameter("id") );
+            
+            Categoria ct = new Categoria();
+            ct.setId(id);
+            
+            ct.delete();
+            
+        }
+        
+        response.sendRedirect( request.getContextPath() + "/home/app/categorias.jsp");
         
     }
     
@@ -261,10 +287,74 @@ public class FrontController extends HttpServlet {
 
         pd.save();
         
-        response.sendRedirect( request.getContextPath() + "/home/home.jsp");
+        if( action.equals("update") ) response.sendRedirect( request.getContextPath() + "/home/app/produtos.jsp"); 
+        else response.sendRedirect( request.getContextPath() + "/home/home.jsp");
         
     } 
+     
+    private void doPostCategorias(HttpServletRequest request, HttpServletResponse response) throws Exception {  
         
+        String action = request.getParameter("action");
+
+        int id = Integer.valueOf( request.getParameter("id") );       
+        String nome = request.getParameter("nome");        
+        
+        Categoria ct = new Categoria();
+
+        ct.setId(id);
+
+        if( action.equals("update") ) ct.load();
+
+        ct.setNome(nome);
+        
+        ct.save();
+        
+        if( action.equals("update") ) response.sendRedirect( request.getContextPath() + "/home/app/categorias.jsp"); 
+        else response.sendRedirect( request.getContextPath() + "/home/home.jsp");
+        
+    } 
+    
+    private void doPostTipoUsuario(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        
+        String action = request.getParameter("action");
+
+        int id = Integer.valueOf( request.getParameter("id") );       
+        String nome = request.getParameter("nome");
+        
+        String moduloAdm = request.getParameter("modulo_adm");
+        if( moduloAdm == null ) {
+            moduloAdm = "N";
+        }
+        
+        String moduloVendas = request.getParameter("modulo_vendas");
+        if( moduloVendas == null ) {
+            moduloVendas = "N";
+        }
+        
+        String moduloCompras = request.getParameter("modulo_compras");
+        if( moduloCompras == null ) {
+            moduloCompras = "N";
+        }
+        
+        // Java Bean
+        TipoUsuario tp = new TipoUsuario();
+
+        tp.setId(id);
+
+        if( action.equals("update") ) tp.load();
+
+        tp.setNome(nome);
+        tp.setModuloAdm(moduloAdm);
+        tp.setModuloVendas(moduloVendas);
+        tp.setModuloCompras(moduloCompras);
+
+        tp.save();
+        
+        if( action.equals("update") ) response.sendRedirect( request.getContextPath() + "/home/app/tipousuario.jsp"); 
+        else response.sendRedirect( request.getContextPath() + "/home/home.jsp");
+        
+    }
+    
 //Default ====================================================================================================================   
         
     private void doDefault(HttpServletRequest request, HttpServletResponse response) throws Exception {
